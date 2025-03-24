@@ -27,3 +27,24 @@ jobs:
 
       - name: Run tests
         run: npm run test
+
+      - name: Notify Database of Deployment
+        env:
+          DEPLOYMENT_API_URL: ${{ secrets.DEPLOYMENT_API_URL }}
+          API_KEY: ${{ secrets.DEPLOYMENT_API_KEY }}
+          ENVIRONMENT: ${{ needs.metadata-config.outputs.tag_environment || 'development' }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          DEPLOY_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "Sending deployment data to API: $DEPLOYMENT_API_URL"
+
+          curl -X POST "$DEPLOYMENT_API_URL" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $API_KEY" \
+            -d '{
+              "repository": "'$REPO_NAME'",
+              "environment": "'$ENVIRONMENT'",
+              "version": "'$IMAGE_TAG'",
+              "deployedAt": "'$DEPLOY_TIME'"
+            }'
