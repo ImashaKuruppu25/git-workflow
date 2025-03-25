@@ -36,9 +36,11 @@ jobs:
           SERVICE_NAME="rooster-core-service"                         
           ENVIRONMENT="dev" 
 
-          echo "Notifying with service version: $SERVICE_VERSION"
+          echo "Notifying with service version: $SERVICE_VERSION"\
+          echo "Full URL: https://watch-your-utilities.rooster-next-level.click/config/manager/updateServiceVersion/${SERVICE_NAME}/${ENVIRONMENT}/v1"
+          echo 'Payload: {"serviceVersion": "'"$SERVICE_VERSION"'"}'
 
-          curl --location 'https://watch-your-utilities.rooster-next-level.click/config/manager/updateServiceVersion/${SERVICE_NAME}/${ENVIRONMENT}/v1' \
+          curl --verbose --location 'https://watch-your-utilities.rooster-next-level.click/config/manager/updateServiceVersion/${SERVICE_NAME}/${ENVIRONMENT}/v1' \
             -H "Content-Type: application/json" \
             -d '{
               "serviceVersion": "'"$SERVICE_VERSION"'"
