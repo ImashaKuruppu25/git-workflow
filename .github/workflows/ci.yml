@@ -41,7 +41,7 @@ jobs:
           echo 'Payload: {"serviceVersion": "'"$SERVICE_VERSION"'"}'
 
           curl --verbose --location 'https://watch-your-utilities.rooster-next-level.click/config/manager/updateServiceVersion/${SERVICE_NAME}/${ENVIRONMENT}/v1' \
-            -H "Content-Type: application/json" \
-            -d '{
+            --header "Content-Type: application/json" \
+            --data '{
               "serviceVersion": "'"$SERVICE_VERSION"'"
             }'
