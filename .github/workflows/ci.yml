@@ -40,8 +40,8 @@ jobs:
           echo "Full URL: https://watch-your-utilities.rooster-next-level.click/config/manager/updateServiceVersion/${SERVICE_NAME}/${ENVIRONMENT}/v1"
           echo 'Payload: {"serviceVersion": "'"$SERVICE_VERSION"'"}'
 
-          curl --location 'https://watch-your-utilities.rooster-next-level.click/config/manager/updateServiceVersion/${SERVICE_NAME}/${ENVIRONMENT}/v1' \
-            --header "Content-Type: application/json" \
-            --data '{
-              "serviceVersion": "'"$SERVICE_VERSION"'"
+          curl --location 'https://watch-your-utilities.rooster-next-level.click/config/manager/updateServiceVersion/rooster-demo-service/dev/v1' \
+              --header 'Content-Type: application/json' \
+              --data '{
+                "serviceVersion": "2.0.1"
             }'
